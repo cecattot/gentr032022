@@ -20,12 +20,13 @@
     <div class="column-responsive column-80">
         <div class="users form content">
             <?= $this->Form->create($user) ?>
+            <input type="hidden" name="idSessao" value="<?= $sessao ?>">
             <fieldset>
                 <legend><?= __('Edit User') ?></legend>
                 <?php
+                    echo $this->Form->control('id', ['value'=>$user['id']]);
                     echo $this->Form->control('siape');
                     echo $this->Form->control('nome');
-                    echo $this->Form->control('password');
                     echo $this->Form->control('ativo');
                     echo $this->Form->control('role_id', ['options' => $roles]);
                 ?>

@@ -32,8 +32,16 @@
                     <td><?= h($user->modified) ?></td>
                     <td><?= $user->has('role') ? $this->Html->link($user->role->id, ['controller' => 'Roles', 'action' => 'view', $user->role->id]) : '' ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
+                        <?=  $this->Form->create() ?>
+                            <input type="hidden" name="acao" value="edit">
+                            <input type="hidden" name="identif" value="<?= $user->id?>">
+                            <button class="btn" type="submit">Edit</button>
+                        <?=  $this->Form->end() ?>
+                        <?=  $this->Form->create() ?>
+                            <input type="hidden" name="acao" value="view">
+                            <input type="hidden" name="identif" value="<?= $user->id?>">
+                            <button class="btn" type="submit">View</button>
+                        <?=  $this->Form->end() ?>
                         <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
                     </td>
                 </tr>

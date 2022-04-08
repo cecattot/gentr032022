@@ -43,7 +43,7 @@ class AppController extends Controller
                     $paginaSolicitada = $params['controller'].'/'.$params['action'];
                     if (!in_array($paginaSolicitada, $permissao)){
                         $this->Flash->warning(__('Acesso à página negado. Realize login novamente.'));
-                        $this->redirect(['controller' => 'Users', 'action' => 'logout']);
+                        $this->redirect(['controller' => 'Users', 'action' => 'index']);
                     }
                 }
             }
