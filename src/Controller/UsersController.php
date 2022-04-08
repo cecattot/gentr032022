@@ -24,13 +24,22 @@ class UsersController extends AppController
      */
     public function index()
     {
-        $users = $this->paginate($this->Users);
         if ($this->request->is('post')) {
             $this->allowAction($this->request->getData());
         }
         $usuario = $this->request->getSession()->read('Auth');
         $usuarioID = $usuario['id'];
         $usuarioRole = $usuario['role_id'];
+
+        if($usuarioRole==1){
+            $users = $this->Users->find('all', ["join" => ['table'=>'Roles','alias'=>'Roles','type'=>'INNER','conditions'=>'Roles.id = Users.role_id']])->toArray();
+        } else {
+            $users = $this->Users->find('all', ["join" => ['table'=>'Roles','alias'=>'Roles','type'=>'INNER','conditions'=>'Roles.id = Users.role_id'], 'conditions'=>"Users.id = $usuarioID"])->toArray();
+            $view['acao'] = 'view';
+            $view['identif'] = $usuarioID;
+            $this->allowAction($view);
+        }
+
         $this->set(compact('users', 'usuarioID', 'usuarioRole'));
     }
 
