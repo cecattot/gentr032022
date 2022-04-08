@@ -41,10 +41,17 @@ class AppController extends Controller
                 } else { // Se o usuário já tentou logar.
                     $permissao = $this->checkAuth($usuario); // Verifica as urls permitidas para o usuário.
                     $paginaSolicitada = $params['controller'].'/'.$params['action'];
+//                    $idSolicitado = $this->request->getSession()->read('Auth'); // Busca id na sessão edit.
                     if (!in_array($paginaSolicitada, $permissao)){
                         $this->Flash->warning(__('Acesso à página negado. Realize login novamente.'));
                         $this->redirect(['controller' => 'Users', 'action' => 'index']);
                     }
+//                    if($paginaSolicitada == "users/edit" OR $paginaSolicitada == "users/view"){
+//                        if($idSolicitado != $usuario["id"]){
+//                            $this->Flash->warning(__('Acesso à página negado. Realize login novamente.'));
+//                            $this->redirect(['controller' => 'Users', 'action' => 'index']);
+//                        }
+//                    }
                 }
             }
             // Obs.: Caso $usuario esteja vazia, então estamos na primeira tentativa de login.

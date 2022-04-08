@@ -28,8 +28,10 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $this->allowAction($this->request->getData());
         }
-
-        $this->set(compact('users'));
+        $usuario = $this->request->getSession()->read('Auth');
+        $usuarioID = $usuario['id'];
+        $usuarioRole = $usuario['role_id'];
+        $this->set(compact('users', 'usuarioID', 'usuarioRole'));
     }
 
     public function allowAction($form)
