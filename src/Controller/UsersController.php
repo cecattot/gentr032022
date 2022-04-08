@@ -108,7 +108,6 @@ class UsersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $form = $this->request->getData();
             $id = $form['id'];
-            if ($id === $form['idSessao']){
                 $user = $this->Users->get($id, [
                     'contain' => [],
                 ]);
@@ -120,10 +119,6 @@ class UsersController extends AppController
                     $this->Flash->error('Ocorreu um erro. Por favor, tente novamente');
                     $this->redirect(['controller' => 'users', 'action' => 'index']);
                 }
-            } else {
-                $this->Flash->error('Você não é bem-vindo aqui');
-                $this->redirect(['controller' => 'users', 'action' => 'index']);
-            }
         }
         if (empty($sessao)) {
             $this->Flash->error('Você não é bem-vindo aqui');
